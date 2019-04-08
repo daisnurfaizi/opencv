@@ -28,6 +28,7 @@ while True:
     name = result[0][0]
     if conf < 50:
       cv2.putText(img, name, (x+2,y+h-5), cv2.FONT_HERSHEY_SIMPLEX, 1, (150,255,0),2)
+	#menambah foto
       cv2.imwrite('opencv'+str(name)+'.jpg',img)
 
     else:
