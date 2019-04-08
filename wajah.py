@@ -28,6 +28,8 @@ while True:
     name = result[0][0]
     if conf < 50:
       cv2.putText(img, name, (x+2,y+h-5), cv2.FONT_HERSHEY_SIMPLEX, 1, (150,255,0),2)
+      cv2.imwrite('opencv'+str(name)+'.jpg',img)
+
     else:
       cv2.putText(img, 'tidak dikenali', (x+2,y+h-5), cv2.FONT_HERSHEY_SIMPLEX, 1, (0,0,255),2)
   cv2.imshow('Face Recognizer',img)
