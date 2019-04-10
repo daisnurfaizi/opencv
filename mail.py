@@ -32,8 +32,8 @@ body = "tes pesan otomatis alexa"
 msg.attach(MIMEText(body, 'plain')) 
   
 # open the file to be sent  
-filename = "opencvdais.jpg"
-attachment = open("opencvdais.jpg", "rb") 
+filename = "test.jpg"
+attachment = open("test.jpg", "rb") 
   
 # instance of MIMEBase and named as p 
 p = MIMEBase('application', 'octet-stream') 
