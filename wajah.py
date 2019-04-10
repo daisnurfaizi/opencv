@@ -15,7 +15,6 @@ face_cascade = cv2.CascadeClassifier('haarcascades/haarcascade_frontalface_defau
 cap = cv2.VideoCapture(0)
 recognizer = cv2.face.LBPHFaceRecognizer_create()
 recognizer.read(fname)
-
 while True:
   ret, img = cap.read()
   gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
@@ -29,6 +28,7 @@ while True:
     if conf < 50:
       cv2.putText(img, name, (x+2,y+h-5), cv2.FONT_HERSHEY_SIMPLEX, 1, (150,255,0),2)
 	#menambah foto
+            #foto mengulang 1 kali
       cv2.imwrite('opencv'+str(name)+'.jpg',img)
 
     else:
