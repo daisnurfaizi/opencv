@@ -32,79 +32,76 @@ def recognize():
           c.execute("select name from users where id = (?);", (ids,))
           result = c.fetchall()
           name = result[0][0]
+          nama = result[0][0]
+          print nama
           if conf < 50:
             cv2.putText(img, name, (x+2,y+h-5), cv2.FONT_HERSHEY_SIMPLEX, 1, (150,255,0),2)
 	#menambah foto
             #foto mengulang 1 kali
-            if name == name:
-              cv2.imwrite('opencv'+str(name)+'.jpg',img)
-              cv2.destroyWindow('Face Recognizer') 
-              fromaddr = "sgoku231@gmail.com"
-              toaddr = "lamunesseliot@gmail.com"
-#toaddr = "lamunesseliot@gmail.com"
-   
-# instance of MIMEMultipart 
-              msg = MIMEMultipart() 
-  
-# storing the senders email address   
-              msg['From'] = fromaddr 
-  
-# storing the receivers email address  
-              msg['To'] = toaddr 
-  
-# storing the subject  
-              msg['Subject'] = "Seseorang datang kerumah"
-  
-# string to store the body of the mail 
-              body = "tes pesan otomatis alexa"
-  
-# attach the body with the msg instance 
-              msg.attach(MIMEText(body, 'plain')) 
-  
-# open the file to be sent  
-              filename = "opencv.jpg"
-              attachment = open("opencv"+str(name)+".jpg", "rb") 
-  
-# instance of MIMEBase and named as p 
-              p = MIMEBase('application', 'octet-stream') 
-  
-# To change the payload into encoded form 
-              p.set_payload((attachment).read()) 
-  
-# encode into base64 
-              encoders.encode_base64(p) 
-   
-              p.add_header('Content-Disposition', "attachment; filename= %s" % filename) 
-  
-# attach the instance 'p' to instance 'msg' 
-              msg.attach(p) 
-  
-# creates SMTP session 
-              s = smtplib.SMTP('smtp.gmail.com', 587) 
-  
-# start TLS for security 
-              s.starttls() 
-  
-# Authentication 
-              s.login(fromaddr, "ZGFpcw==") 
-  
-# Converts the Multipart msg into a string 
-              text = msg.as_string() 
-  
-# sending the mail 
-              s.sendmail(fromaddr, toaddr, text)  
-              time.sleep(10)
-            
+            #if name == name:
+             #     mail()
           else:
             cv2.putText(img, 'tidak dikenali', (x+2,y+h-5), cv2.FONT_HERSHEY_SIMPLEX, 1, (0,0,255),2)
         cv2.imshow('Face Recognizer',img)
         k = cv2.waitKey(30) & 0xff
         if k == 27:
           break
-
-                 
-                
-recognize()
+def mail():
+      cv2.imwrite('opencv'+str(name)+'.jpg',img)
+      cv2.destroyWindow('Face Recognizer') 
+      fromaddr = "sgoku231@gmail.com"
+      toaddr = "lamunesseliot@gmail.com"
+#toaddr = "lamunesseliot@gmail.com"
+   
+# instance of MIMEMultipart 
+      msg = MIMEMultipart() 
   
+# storing the senders email address   
+      msg['From'] = fromaddr 
+  
+# storing the receivers email address  
+      msg['To'] = toaddr 
+  
+# storing the subject  
+      msg['Subject'] = "Seseorang datang kerumah"
+  
+# string to store the body of the mail 
+      body = "tes pesan otomatis alexa"
+  
+# attach the body with the msg instance 
+      msg.attach(MIMEText(body, 'plain')) 
+  
+# open the file to be sent  
+      filename = "opencv.jpg"
+      attachment = open("opencv"+str(name)+".jpg", "rb") 
+  
+# instance of MIMEBase and named as p 
+      p = MIMEBase('application', 'octet-stream') 
+  
+# To change the payload into encoded form 
+      p.set_payload((attachment).read()) 
+  
+# encode into base64 
+      encoders.encode_base64(p) 
+      p.add_header('Content-Disposition', "attachment; filename= %s" % filename) 
+  
+# attach the instance 'p' to instance 'msg' 
+      msg.attach(p) 
+  
+# creates SMTP session 
+      s = smtplib.SMTP('smtp.gmail.com', 587) 
+  
+# start TLS for security 
+      s.starttls() 
+  
+# Authentication 
+      s.login(fromaddr, "ZGFpcw==") 
+  
+# Converts the Multipart msg into a string 
+      text = msg.as_string() 
+# sending the mail 
+      s.sendmail(fromaddr, toaddr, text)  
+      time.sleep(10)          
+recognize()
 cap.release()
 cv2.destroyAllWindows()
