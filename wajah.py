@@ -36,6 +36,7 @@ def recognize():
           print nama
           if conf < 50:
             cv2.putText(img, name, (x+2,y+h-5), cv2.FONT_HERSHEY_SIMPLEX, 1, (150,255,0),2)
+            break
 	#menambah foto
             #foto mengulang 1 kali
             #if name == name:
@@ -46,6 +47,9 @@ def recognize():
         k = cv2.waitKey(30) & 0xff
         if k == 27:
           break
+          cap.release()
+          time.sleep(5)
+          continue
 def mail():
       cv2.imwrite('opencv'+str(name)+'.jpg',img)
       cv2.destroyWindow('Face Recognizer') 
@@ -103,5 +107,4 @@ def mail():
       s.sendmail(fromaddr, toaddr, text)  
       time.sleep(10)          
 recognize()
-cap.release()
-cv2.destroyAllWindows()
+#cv2.destroyAllWindows()
