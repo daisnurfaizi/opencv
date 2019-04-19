@@ -10,8 +10,9 @@ from email.mime.base import MIMEBase
 from email import encoders 
    
 fromaddr = "sgoku231@gmail.com"
-toaddr = "andreas.saragih33@gmail.com"
-#toaddr = "lamunesseliot@gmail.com"
+#toaddr = "bagaswahyuvidiasmoro@gmail.com"
+toaddr = "lamunesseliot@gmail.com"
+#bagaswahyuvidiasmoro@yahoo.com
    
 # instance of MIMEMultipart 
 msg = MIMEMultipart() 
@@ -23,7 +24,7 @@ msg['From'] = fromaddr
 msg['To'] = toaddr 
   
 # storing the subject  
-msg['Subject'] = "Seseorang datang kerumah"
+msg['Subject'] = "Seseorang tidak dikenal berada di dekat rumah anda"
   
 # string to store the body of the mail 
 body = "tes pesan otomatis alexa"
@@ -33,7 +34,7 @@ msg.attach(MIMEText(body, 'plain'))
   
 # open the file to be sent  
 filename = "test.jpg"
-attachment = open("test.jpg", "rb") 
+attachment = open("opencveliot.jpg", "rb") 
   
 # instance of MIMEBase and named as p 
 p = MIMEBase('application', 'octet-stream') 
