@@ -19,7 +19,8 @@ if not os.path.isfile(fname):
 
 face_cascade = cv2.CascadeClassifier('haarcascades/haarcascade_frontalface_default.xml')
 cap = cv2.VideoCapture(0)
-recognizer = cv2.face.LBPHFaceRecognizer_create()
+#recognizer = cv2.face.LBPHFaceRecognizer_create()
+recognizer = cv2.face.FisherFaceRecognizer_create()
 recognizer.read(fname)
 def recognize():
       while True:
@@ -32,8 +33,8 @@ def recognize():
           c.execute("select name from users where id = (?);", (ids,))
           result = c.fetchall()
           name = result[0][0]
-          nama = result[0][0]
-          print nama
+          #nama = result[0][0]
+         # print nama
           if conf < 50:
             cv2.putText(img, name, (x+2,y+h-5), cv2.FONT_HERSHEY_SIMPLEX, 1, (150,255,0),2)
             #cv2.imwrite('opencv'+str(name)+'.jpg',img)
