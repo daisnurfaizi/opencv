@@ -78,8 +78,6 @@ while True:
           s.sendmail(fromaddr, toaddr, text) 
           # terminating the session 
           s.quit() 
-          print "foto berhasil"
-          print "done"
           
     else:
       cv2.putText(img, 'tidak dikenali', (x+2,y+h-5), cv2.FONT_HERSHEY_SIMPLEX, 1, (0,0,255),2)
