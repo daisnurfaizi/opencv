@@ -19,8 +19,13 @@ if not os.path.isfile(fname):
 
 face_cascade = cv2.CascadeClassifier('haarcascades/haarcascade_frontalface_default.xml')
 cap = cv2.VideoCapture(0)
-#recognizer = cv2.face.LBPHFaceRecognizer_create()
-recognizer = cv2.face.FisherFaceRecognizer_create()
+recognizer = cv2.face.LBPHFaceRecognizer_create()
+while True:
+      ret, img = cap.read()
+      gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+      cv2.imshow('img',img)
+
+#recognizer = cv2.face.FisherFaceRecognizer_create()
 recognizer.read(fname)
 def recognize():
       while True:
@@ -109,5 +114,5 @@ def mail():
 # sending the mail 
       s.sendmail(fromaddr, toaddr, text)  
       time.sleep(10)          
-recognize()
+#recognize()
 #cv2.destroyAllWindows()
