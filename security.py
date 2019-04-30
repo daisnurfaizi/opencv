@@ -79,8 +79,50 @@ while True:
           # terminating the session 
           s.quit() 
           
-    else:
+    elif (time.time() - last_epoch) > email_update_interval :
       cv2.putText(img, 'tidak dikenali', (x+2,y+h-5), cv2.FONT_HERSHEY_SIMPLEX, 1, (0,0,255),2)
+      last_epoch = time.time()
+      cv2.imwrite('opencv_stranger.jpg',img)
+      fromaddr = "sgoku231@gmail.com"
+      #toaddr = "bagaswahyuvidiasmoro@gmail.com"
+      toaddr = "lamunesseliot@gmail.com"
+      #bagaswahyuvidiasmoro@yahoo.com
+      # instance of MIMEMultipart 
+      msg = MIMEMultipart() 
+      # storing the senders email address   
+      msg['From'] = fromaddr 
+      # storing the receivers email address  
+      msg['To'] = toaddr 
+      # storing the subject  
+      msg['Subject'] = 'seseorang tidak di kenal mengunjungi rumah anda'
+      # string to store the body of the mail 
+      body = "security camera"
+      # attach the body with the msg instance 
+      msg.attach(MIMEText(body, 'plain')) 
+      # open the file to be sent  
+      filename = "test.jpg"
+      attachment = open('opencv_stranger.jpg', "rb") 
+      # instance of MIMEBase and named as p 
+      p = MIMEBase('application', 'octet-stream') 
+      # To change the payload into encoded form 
+      p.set_payload((attachment).read()) 
+      # encode into base64 
+      encoders.encode_base64(p) 
+      p.add_header('Content-Disposition', "attachment; filename= %s" % filename) 
+      # attach the instance 'p' to instance 'msg' 
+      msg.attach(p) 
+      # creates SMTP session 
+      s = smtplib.SMTP('smtp.gmail.com', 587) 
+      # start TLS for security 
+      s.starttls() 
+      # Authentication 
+      s.login(fromaddr, "ZGFpcw==") 
+      # Converts the Multipart msg into a string 
+      text = msg.as_string() 
+      # sending the mail 
+      s.sendmail(fromaddr, toaddr, text) 
+      # terminating the session 
+      s.quit() 
   cv2.imshow('Face Recognizer',img)
   k = cv2.waitKey(30) & 0xff
   if k == 27:
