@@ -5,6 +5,7 @@ import os
 import time
 import smtplib 
 import mail as mm
+#import record_face as rekam
 
 conn = sqlite3.connect('database.db')
 c = conn.cursor()
@@ -20,6 +21,7 @@ recognizer = cv2.face.LBPHFaceRecognizer_create()
 recognizer.read(fname)
 email_update_interval = 60
 last_epoch = 0 
+foto = [0]
 while True:
   ret, img = cap.read()
   gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
@@ -30,25 +32,31 @@ while True:
     c.execute("select name from users where id = (?);", (ids,))
     result = c.fetchall()
     name = result[0][0]
+    kenal = str(name)
     if conf < 50:
       cv2.putText(img, name, (x+2,y+h-5), cv2.FONT_HERSHEY_SIMPLEX, 1, (150,255,0),2)
-      if conf <50 and name != "dais" and (time.time() - last_epoch) > email_update_interval:
+      if conf <50 and name != "dais" and foto[0] != kenal: #(time.time() - last_epoch) > email_update_interval:
           last_epoch = time.time()
           cv2.imwrite('opencv'+str(name)+'.jpg',img)
-          kenal = str(name)
+          foto.insert(0,kenal)
           mm.kenal(kenal) 
           
-    elif (time.time() - last_epoch) > email_update_interval :
+    else:
       cv2.putText(img, 'tidak dikenali', (x+2,y+h-5), cv2.FONT_HERSHEY_SIMPLEX, 1, (0,0,255),2)
-      last_epoch = time.time()
-      cv2.imwrite('opencv_stranger.jpg',img)
-      mm.tidak()
+      if (time.time() - last_epoch) > email_update_interval: 
+        last_epoch = time.time()
+        cv2.imwrite('opencv_stranger.jpg',img)
+        mm.tidak()
   cv2.imshow('Face Recognizer',img)
   k = cv2.waitKey(30) & 0xff
   if k == 27:
     break
   if k == 105:
+    break
     print('hello')
+    
+    
 
 cap.release()
 cv2.destroyAllWindows()
+exec(open("gui.py").read())
